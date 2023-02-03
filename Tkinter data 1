@@ -1,0 +1,66 @@
+import tkinter as tk
+import mysql.connector
+
+# Connect to the database
+db = mysql.connector.connect(
+    host="host",
+    user="user",
+    password="password",
+    database="database"
+)
+
+# Create the main window
+root = tk.Tk()
+root.title("Login and Registration Form")
+
+# Define functions for login and registration
+def login():
+    # Retrieve the user's input
+    username = username_entry.get()
+    password = password_entry.get()
+
+    # Verify the user's credentials
+    cursor = db.cursor()
+    query = "SELECT * FROM users WHERE username=%s AND password=%s"
+    cursor.execute(query, (username, password))
+
+    # If the user exists, display a success message
+    if cursor.fetchone():
+        label = tk.Label(root, text="Login successful")
+        label.pack()
+    # If the user does not exist, display an error message
+    else:
+        label = tk.Label(root, text="Login failed")
+        label.pack()
+
+def register():
+    # Retrieve the user's input
+    username = username_entry.get()
+    password = password_entry.get()
+
+    # Insert the user's information into the database
+    cursor = db.cursor()
+    query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+    cursor.execute(query, (username, password))
+    db.commit()
+
+    # Display a success message
+    label = tk.Label(root, text="Registration successful")
+    label.pack()
+
+# Create the form
+username_label = tk.Label(root, text="Username")
+username_label.pack()
+
+username_entry = tk.Entry(root)
+username_entry.pack()
+
+password_label = tk.Label(root, text="Password")
+password_label.pack()
+
+password_entry = tk.Entry(root, show="*")
+password_entry.pack()
+
+login_button = tk.Button(root, text="Login", command=login)
+login_button.pack()
+
