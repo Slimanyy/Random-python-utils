@@ -1,0 +1,19 @@
+import requests
+
+# API endpoint for sports news
+url = 'https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=YOUR_API_KEY'
+
+# Make a GET request to the API endpoint
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Get the data from the response
+    data = response.json()
+
+    # Loop through the articles and print their titles
+    for article in data['articles']:
+        print(article['title'])
+else:
+    # Handle the error
+    print("Request failed with status code:", response.status_code)
