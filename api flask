@@ -21,13 +21,3 @@ def news():
 
 if __name__ == "__main__":
     app.run()
-
-
-
-
-<h1>Sports News</h1>
-<ul>
-{% for article in articles %}
-  <li>{{ article.title }}</li>
-{% endfor %}
-</ul>
