@@ -1,0 +1,15 @@
+import requests
+
+# Make a request to the API endpoint
+response = requests.get('https://api.example.com/data')
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Get the data from the response
+    data = response.json()
+
+    # Do something with the data
+    print(data)
+else:
+    # Handle the error
+    print("Request failed with status code:", response.status_code)
